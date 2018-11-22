@@ -1,0 +1,14 @@
+language: java
+jdk: oraclejdk8
+cache:
+  directories:
+  - "$HOME/.m2"
+install:
+- mvn -N io.takari:maven:wrapper -Dmaven=${MAVEN_VERSION}
+- "./mvnw --show-version --errors --batch-mode test-compile dependency:go-offline"
+script: "./mvnw --show-version --errors --batch-mode -Prun-its clean verify"
+deploy:
+  provider: heroku
+  api_key:
+    secure: F2mEBWONNngS0Cb7ybv3NPphqFUf3sUZTX8LjKvg2/EXBdxFLykAGPow0U3UmOVqwXCI24yEtWSSnI5NTGYCGE0pph0hMMwpv/y6jOBAoozIumNRoUOSzK55aV+wQi7ne5g+dNi+hDTnRJ6Ouke/Ab8KZqwXIjZGdMlcRgJYT/rDp/+Sb2uvufRBiX2anFrUwfZFKcJKZZHqZHNeNy2C3zW2rt0+pA+J63eHO+yMnC+H7Bc9f70MoxgkhYtcaA8S8CwI3khWT8xSO2VDu0hp2SGbqYeXLjejctGhXuQVd7H0VIPt56BlklHpMoZjZ9MHUt03WmFsBLy6MYuyMsfueR1nbX3YTBLzjE9HBEPS0A4QXQ5xOuJ46t6XAFrNrWxtujXvQfaiu6hLRIaECOublbVE7F6+uklg0//y5Rtvwqxlg1jUf+jELc+gXX3kvObG6aEWoaM+6Ud3+oaELa8fRQp/C16wagegwuPNEW5uJaATD6YPJX6dX1SmkUFuvrNr03sBgk45eO1PdOpip8u9l7OstCyej4V0bzFs6LHWbKQEe1S3D0VnmOkocdAnIqdowj6mLeCQPfA2KH8g5b9JiLkOuqFSBBnWfJ2h+vtu71hd/kSHpyipSWdd+R85LrsDasIL35uIbmDP9sEFQSmuku+Dy3eVDMX7Om+/3tfoxR4=
+  app: rbc-petstore-api
